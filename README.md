@@ -87,7 +87,7 @@ Then open <http://localhost:4000>. It rebuilds as you save.
 - DNS at the domain registrar needs to point at GitHub:
   - `A` records for `lauracerezo.com` → `185.199.108.153`, `185.199.109.153`,
     `185.199.110.153`, `185.199.111.153`
-  - `CNAME` record for `www` → `lcerezo.github.io`
+  - `CNAME` record for `www` → `lauracerezo-com.github.io`
 
 ## What's in here
 

@@ -79,15 +79,43 @@ Then open <http://localhost:4000>. It rebuilds as you save.
 
 ## How it gets published
 
-- Push to `main` → GitHub Pages builds and publishes it.
-- The `CNAME` file points the site at **lauracerezo.com**. Don't delete it.
-- One-time setup in the repo's **Settings → Pages**: set the source to
-  *Deploy from a branch* → `main` / `/ (root)`, then set the custom domain to
-  `lauracerezo.com` and tick **Enforce HTTPS** once the certificate is ready.
-- DNS at the domain registrar needs to point at GitHub:
-  - `A` records for `lauracerezo.com` → `185.199.108.153`, `185.199.109.153`,
-    `185.199.110.153`, `185.199.111.153`
-  - `CNAME` record for `www` → `lauracerezo-com.github.io`
+Push to `main` and GitHub Pages builds and publishes it. That's the whole
+workflow — there's no deploy command.
+
+This repo is named `lauracerezo-com.github.io`, which matches its owning org,
+so Pages treats it as an **org site** and serves it from the domain root. That's
+why `baseurl` in `_config.yml` is empty and should stay that way. Two addresses
+reach it:
+
+| Address | What it is |
+| --- | --- |
+| <https://lauracerezo.com> | the real one, via the `CNAME` file |
+| <https://lauracerezo-com.github.io> | GitHub's built-in fallback, always works |
+
+### One-time setup
+
+1. **Settings → Pages** → source *Deploy from a branch* → `main` / `/ (root)`.
+2. Set the custom domain to `lauracerezo.com`, then tick **Enforce HTTPS** once
+   the certificate finishes issuing (can take a few minutes to an hour).
+3. Make sure the `CNAME` file exists at the repo root containing
+   `lauracerezo.com`. It's what claims the domain — don't delete it. (If you
+   ever see it as `CNAME.disabled`, the domain is parked; rename it back.)
+
+### DNS
+
+The domain is on **Cloudflare**. The records need to point at GitHub:
+
+- `A` records for `lauracerezo.com` → `185.199.108.153`, `185.199.109.153`,
+  `185.199.110.153`, `185.199.111.153`
+- `CNAME` record for `www` → `lauracerezo-com.github.io`
+
+Cloudflare-specific, and the usual cause of a site that won't go live:
+
+- Set those records to **DNS only** (grey cloud, proxy off) at least until
+  GitHub has issued the HTTPS certificate — GitHub has to reach the origin to
+  validate the domain, and the proxy gets in the way.
+- If you turn the orange-cloud proxy back on afterward, set **SSL/TLS → Full**.
+  Leaving it on *Flexible* causes an infinite redirect loop.
 
 ## What's in here
 

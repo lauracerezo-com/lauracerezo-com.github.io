@@ -1,0 +1,42 @@
+---
+layout: default
+---
+<section class="hero">
+  <h1 class="hero-title">{{ page.heading | default: site.title }}</h1>
+  {%- if page.blurb %}<p class="hero-blurb">{{ page.blurb }}</p>{% endif %}
+  {{ content }}
+</section>
+
+{%- assign recent = site.posts | slice: 0, 3 %}
+{%- if recent.size > 0 %}
+<section class="home-section">
+  <h2 class="section-heading"><a href="{{ '/writing/' | relative_url }}">Writing</a></h2>
+  <ul class="post-list">
+    {%- for post in recent %}
+    <li class="post-list-item">
+      <a class="post-list-link" href="{{ post.url | relative_url }}">
+        <span class="post-list-title">{{ post.title }}</span>
+        <time class="post-list-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+      </a>
+      {%- if post.subtitle %}<p class="post-list-excerpt">{{ post.subtitle }}</p>
+      {%- else %}<p class="post-list-excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</p>{% endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+  <p class="more"><a href="{{ '/writing/' | relative_url }}">Everything I've written &rarr;</a></p>
+</section>
+{%- endif %}
+
+{%- assign featured = site.data.art | where: "featured", true %}
+{%- if featured.size == 0 %}{% assign featured = site.data.art | slice: 0, 4 %}{% endif %}
+{%- if featured.size > 0 %}
+<section class="home-section">
+  <h2 class="section-heading"><a href="{{ '/art/' | relative_url }}">Art</a></h2>
+  <div class="art-grid art-grid-compact">
+    {%- for piece in featured %}
+    {% include art-figure.html piece=piece %}
+    {%- endfor %}
+  </div>
+  <p class="more"><a href="{{ '/art/' | relative_url }}">See all the art &rarr;</a></p>
+</section>
+{%- endif %}

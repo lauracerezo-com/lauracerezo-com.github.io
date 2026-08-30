@@ -1,0 +1,34 @@
+# Every piece of art on /art/ lives here. Add a new block to the top of the
+# list and it shows up first. Only `title` and `image` are required.
+#
+#   - title:    what it's called
+#     image:    /assets/images/art/your-file.jpg
+#     alt:      description for screen readers + when the image won't load
+#     year:     2026
+#     medium:   Ink on paper
+#     note:     one line of context, if you want one
+#     featured: true    # also show it on the homepage
+#
+# Put the image files themselves in assets/images/art/.
+
+- title: Study in Two Reds
+  image: /assets/images/art/placeholder-01.svg
+  alt: Two overlapping red shapes on a cream field
+  year: 2026
+  medium: Ink and gouache on paper
+  note: Delete me and put something real here.
+  featured: true
+
+- title: Morning, Unfinished
+  image: /assets/images/art/placeholder-02.svg
+  alt: Loose grid of pale rectangles
+  year: 2026
+  medium: Graphite
+  featured: true
+
+- title: Field Notes
+  image: /assets/images/art/placeholder-03.svg
+  alt: Dense pattern of short vertical marks
+  year: 2025
+  medium: Ink on newsprint
+  featured: true

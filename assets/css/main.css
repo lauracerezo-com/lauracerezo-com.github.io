@@ -1,0 +1,567 @@
+/* ==========================================================================
+   Thal Cerezo — lauracerezo.com
+   One stylesheet, no build step, no frameworks.
+
+   Want to change the whole mood of the site? Edit the colors and fonts in
+   the ":root" block right below. Everything else follows from those.
+   ========================================================================== */
+
+:root {
+  /* --- Colors: warm paper, dark ink, one accent ------------------------- */
+  --paper:        #faf7f2;
+  --paper-sunk:   #f1ebe1;
+  --ink:          #1c1a17;
+  --ink-soft:     #57514a;
+  --ink-faint:    #8b8378;
+  --rule:         #e0d8cb;
+  --accent:       #a8412a;   /* the one loud color — links, hovers */
+  --accent-soft:  #f0dcd5;
+
+  /* --- Type ------------------------------------------------------------ */
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua",
+           Georgia, "Times New Roman", serif;
+  --sans:  ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+           Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono:  ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* --- Rhythm ---------------------------------------------------------- */
+  --measure: 34rem;   /* comfortable reading width */
+  --wide:    68rem;   /* galleries */
+  --gap:     clamp(1.25rem, 4vw, 2.5rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:       #14130f;
+    --paper-sunk:  #1d1b17;
+    --ink:         #ece7de;
+    --ink-soft:    #b3aca1;
+    --ink-faint:   #7d766c;
+    --rule:        #322e28;
+    --accent:      #e08765;
+    --accent-soft: #3a251d;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reset-ish
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+body {
+  margin: 0;
+  padding: 0 var(--gap);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(1.0625rem, 0.5vw + 1rem, 1.1875rem);
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: var(--gap);
+  top: 0.5rem;
+  z-index: 10;
+  background: var(--paper);
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--rule);
+}
+
+/* --------------------------------------------------------------------------
+   Masthead + nav
+   -------------------------------------------------------------------------- */
+
+.masthead {
+  width: 100%;
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 2.75rem) 0 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.wordmark {
+  font-size: 1.375rem;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.wordmark:hover { color: var(--accent); }
+
+.wordmark-tagline {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+}
+.nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+.nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* --------------------------------------------------------------------------
+   Layout containers
+   -------------------------------------------------------------------------- */
+
+main {
+  flex: 1;
+  width: 100%;
+}
+
+.prose, .hero, .home-section {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.measure { max-width: var(--measure); }
+.wide    { max-width: var(--wide); }
+
+.prose { padding: clamp(2rem, 6vw, 3.5rem) 0 4rem; }
+
+/* --------------------------------------------------------------------------
+   Headings & text
+   -------------------------------------------------------------------------- */
+
+.page-title {
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.5rem;
+  text-wrap: balance;
+}
+
+.page-subtitle {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  margin: 0 0 2.5rem;
+  text-wrap: pretty;
+}
+
+.prose h2 {
+  font-size: 1.375rem;
+  font-weight: 500;
+  margin: 2.5rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+.prose h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 2rem 0 0.5rem;
+}
+
+.prose p, .prose ul, .prose ol { margin: 0 0 1.4em; }
+.prose li { margin-bottom: 0.4em; }
+.prose p { text-wrap: pretty; }
+
+.prose blockquote {
+  margin: 2rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--accent);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 3rem auto;
+  width: 6rem;
+}
+
+/* Only images written into the body of a post get breathing room — scoped to
+   `p > img` on purpose, so gallery thumbnails and figures aren't affected. */
+.prose p > img {
+  margin: 2rem auto;
+  border-radius: 2px;
+}
+
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: var(--paper-sunk);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+}
+.prose pre {
+  background: var(--paper-sunk);
+  padding: 1rem 1.25rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+.prose pre code { background: none; padding: 0; }
+
+/* --------------------------------------------------------------------------
+   Home
+   -------------------------------------------------------------------------- */
+
+.hero {
+  max-width: var(--measure);
+  padding: clamp(3rem, 10vw, 6rem) 0 clamp(2rem, 6vw, 3.5rem);
+}
+.hero-title {
+  font-size: clamp(2.25rem, 7vw, 3.5rem);
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  margin: 0 0 1rem;
+  text-wrap: balance;
+}
+.hero-blurb {
+  font-size: 1.125rem;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 30rem;
+  text-wrap: pretty;
+}
+
+.home-section {
+  max-width: var(--wide);
+  padding: 0 0 clamp(2.5rem, 7vw, 4.5rem);
+}
+
+.section-heading {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.section-heading a { color: inherit; text-decoration: none; }
+.section-heading a:hover { color: var(--accent); }
+
+.more {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  margin: 1.75rem 0 0;
+}
+
+/* --------------------------------------------------------------------------
+   Post lists
+   -------------------------------------------------------------------------- */
+
+.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: var(--measure);
+}
+
+.post-list-item {
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.post-list-item:last-child { border-bottom: 0; }
+
+.post-list-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.post-list-title {
+  font-size: 1.1875rem;
+  line-height: 1.3;
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+}
+.post-list-link:hover .post-list-title {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+.post-list-date {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+.post-list-excerpt {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.4rem 0 0;
+  text-wrap: pretty;
+}
+
+/* --------------------------------------------------------------------------
+   Single post
+   -------------------------------------------------------------------------- */
+
+.post-header { margin-bottom: 2.5rem; }
+
+.post-meta {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0.6rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.post-meta .tag {
+  background: var(--accent-soft);
+  color: var(--ink-soft);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  letter-spacing: 0.06em;
+}
+.post-meta .dot { color: var(--rule); }
+
+.post-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: space-between;
+  margin: 4rem 0 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: 1rem;
+}
+.post-nav a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-width: 15rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.post-nav a:hover { color: var(--accent); }
+.post-nav-next { text-align: right; margin-left: auto; }
+.post-nav-label {
+  font-family: var(--sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.post-back {
+  font-family: var(--sans);
+  font-size: 0.875rem;
+}
+
+/* --------------------------------------------------------------------------
+   Art grid
+   -------------------------------------------------------------------------- */
+
+.art-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  align-items: start;   /* let each piece keep its own height */
+  margin: 0 0 2rem;
+}
+
+/* The homepage teaser reads better as an even strip, so those get cropped
+   to squares. The real gallery on /art/ always shows true proportions. */
+.art-grid-compact {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+}
+.art-grid-compact .art-link img {
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.art-item { margin: 0; }
+
+.art-link {
+  display: block;
+  background: var(--paper-sunk);
+  overflow: hidden;
+  border-radius: 2px;
+  cursor: zoom-in;
+}
+.art-link img {
+  width: 100%;
+  transition: transform 400ms cubic-bezier(0.2, 0, 0.2, 1), opacity 200ms;
+}
+.art-link:hover img { transform: scale(1.03); }
+
+.art-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-top: 0.7rem;
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.art-title { color: var(--ink); }
+.art-meta  { color: var(--ink-faint); font-size: 0.75rem; }
+.art-note  { color: var(--ink-soft); font-style: italic; }
+
+.portrait { margin: 2.5rem 0; }
+.portrait img { border-radius: 2px; }
+.portrait figcaption {
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+  margin-top: 0.6rem;
+}
+
+/* --------------------------------------------------------------------------
+   Lightbox (see assets/js/lightbox.js)
+   -------------------------------------------------------------------------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  background: color-mix(in srgb, var(--paper) 94%, black);
+  display: none;
+}
+.lightbox[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: clamp(1rem, 5vw, 3rem);
+}
+.lightbox::backdrop { background: rgb(0 0 0 / 0.7); }
+.lightbox img {
+  max-width: 100%;
+  max-height: 80vh;
+  width: auto;
+  object-fit: contain;
+  border-radius: 2px;
+}
+.lightbox-caption {
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  text-align: center;
+  margin: 0;
+}
+.lightbox-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: 0;
+  font-family: var(--sans);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+}
+.lightbox-close:hover { color: var(--accent); }
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.footer {
+  width: 100%;
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 2rem 0 2.5rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+}
+.footer-line { margin: 0; }
+.footer-links {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+.footer-links a { color: var(--ink-soft); text-decoration: none; }
+.footer-links a:hover { color: var(--accent); text-decoration: underline; }
+
+/* --------------------------------------------------------------------------
+   Print
+   -------------------------------------------------------------------------- */
+
+@media print {
+  .masthead, .footer, .post-nav, .post-back, .skip-link { display: none; }
+  body { color: #000; background: #fff; padding: 0; }
+  .prose { max-width: none; }
+}

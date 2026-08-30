@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" role="img" aria-label="Loose grid of pale rectangles">
+  <rect width="600" height="450" fill="#f6f1e8"/>
+  <g fill="none" stroke="#8b8378" stroke-width="1.5">
+    <rect x="50" y="50" width="140" height="110"/>
+    <rect x="215" y="70" width="160" height="90"/>
+    <rect x="400" y="45" width="150" height="130"/>
+    <rect x="60" y="200" width="180" height="120"/>
+    <rect x="265" y="190" width="120" height="160"/>
+    <rect x="410" y="210" width="140" height="100"/>
+  </g>
+  <rect x="265" y="190" width="120" height="160" fill="#e0d8cb" opacity="0.6"/>
+</svg>

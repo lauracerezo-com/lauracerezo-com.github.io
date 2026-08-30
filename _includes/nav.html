@@ -1,0 +1,13 @@
+<header class="masthead">
+  <a class="wordmark" href="{{ '/' | relative_url }}">
+    {{ site.title }}
+    {%- if site.tagline %}<span class="wordmark-tagline">{{ site.tagline }}</span>{% endif -%}
+  </a>
+
+  <nav class="nav" aria-label="Main">
+    {%- assign here = page.url -%}
+    <a href="{{ '/writing/' | relative_url }}" {% if here contains '/writing' %}aria-current="page"{% endif %}>Writing</a>
+    <a href="{{ '/art/' | relative_url }}" {% if here contains '/art' %}aria-current="page"{% endif %}>Art</a>
+    <a href="{{ '/about/' | relative_url }}" {% if here contains '/about' %}aria-current="page"{% endif %}>About</a>
+  </nav>
+</header>

@@ -1,0 +1,25 @@
+{%- comment -%}
+  One piece in an art grid.
+  Usage: {% include art-figure.html piece=piece %}
+  Fields come from _data/art.yml — see README.
+{%- endcomment -%}
+<figure class="art-item">
+  <a class="art-link"
+     href="{{ include.piece.image | relative_url }}"
+     data-lightbox
+     data-caption="{{ include.piece.title | escape }}{% if include.piece.year %} ({{ include.piece.year }}){% endif %}">
+    <img src="{{ include.piece.image | relative_url }}"
+         alt="{{ include.piece.alt | default: include.piece.title | escape }}"
+         loading="lazy"
+         decoding="async">
+  </a>
+  <figcaption class="art-caption">
+    <span class="art-title">{{ include.piece.title }}</span>
+    {%- if include.piece.year or include.piece.medium %}
+    <span class="art-meta">
+      {{ include.piece.medium }}{% if include.piece.medium and include.piece.year %}, {% endif %}{{ include.piece.year }}
+    </span>
+    {%- endif %}
+    {%- if include.piece.note %}<span class="art-note">{{ include.piece.note }}</span>{% endif %}
+  </figcaption>
+</figure>

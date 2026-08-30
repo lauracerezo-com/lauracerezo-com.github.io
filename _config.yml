@@ -1,0 +1,54 @@
+# --- Site identity ------------------------------------------------------
+title: Thal Cerezo
+tagline: writing & art
+description: >-
+  Writing and art by Thal Cerezo.
+author: Thal Cerezo
+email: ""            # optional — shows up in the footer if set
+
+url: "https://lauracerezo.com"
+baseurl: ""
+
+# Social links. Delete a line to hide it, or add your own.
+social:
+  instagram: ""      # just the handle, no @
+  bluesky: ""        # full handle, e.g. laura.bsky.social
+  tumblr: ""
+
+# --- Build --------------------------------------------------------------
+permalink: /writing/:title/
+
+# No inherited theme — every layout in this repo is ours. (Without this,
+# GitHub Pages silently applies jekyll-theme-primer and ships its CSS.)
+theme: null
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  smart_quotes: ["apos", "apos", "quot", "quot"]
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+feed:
+  path: /feed.xml
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+    values:
+      layout: page
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - .jekyll-cache

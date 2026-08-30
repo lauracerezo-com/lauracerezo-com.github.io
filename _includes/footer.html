@@ -1,0 +1,19 @@
+<footer class="footer">
+  <p class="footer-line">&copy; {{ 'now' | date: "%Y" }} {{ site.author }}</p>
+
+  <p class="footer-links">
+    {%- if site.social.instagram and site.social.instagram != "" %}
+    <a href="https://instagram.com/{{ site.social.instagram }}" rel="me">Instagram</a>
+    {%- endif %}
+    {%- if site.social.bluesky and site.social.bluesky != "" %}
+    <a href="https://bsky.app/profile/{{ site.social.bluesky }}" rel="me">Bluesky</a>
+    {%- endif %}
+    {%- if site.social.tumblr and site.social.tumblr != "" %}
+    <a href="https://{{ site.social.tumblr }}.tumblr.com" rel="me">Tumblr</a>
+    {%- endif %}
+    {%- if site.email and site.email != "" %}
+    <a href="mailto:{{ site.email }}">Email</a>
+    {%- endif %}
+    <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+  </p>
+</footer>
